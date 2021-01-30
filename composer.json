@@ -1,0 +1,11 @@
+{
+    "require": {
+        "php": "^7.4",
+        "psy/psysh": "@stable"
+    },
+    "autoload": {
+        "psr-4": {
+            "BelowCode\\Psycho\\": "src/"
+        }
+    }
+}
