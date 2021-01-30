@@ -8,12 +8,13 @@ use Psy\Shell;
 use Psy\VersionUpdater\Checker;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\Output;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class Clockwerk
 {
-    protected Shell $shell;
+    protected OutputInterface $output;
 
-    protected Output $output;
+    protected Shell $shell;
 
     protected string $target;
 
@@ -55,21 +56,16 @@ class Clockwerk
 
         // laravel bootstrap
         require $target.'/vendor/autoload.php';
-        $app = require_once $target.'/bootstrap/app.php';
-        $kernel = $app->make(\Illuminate\Contracts\Console\Kernel::class)->bootstrap();
+//        $app = require_once $target.'/bootstrap/app.php';
+//        $kernel = $app->make(\Illuminate\Contracts\Console\Kernel::class)->bootstrap();
 
         return $this;
     }
 
     public function execute(string $phpCode): string
     {
-        $this->shell->addInput($phpCode);
+        $output = $this->shell->execute($phpCode);
 
-        $closure = new ExecutionLoopClosure($this->shell);
-
-        $closure->execute();
-
-        $output = $this->output->fetch();
         $output = $this->cleanOutput($output);
 
         return $output;
