@@ -2,9 +2,7 @@
 
 include __DIR__.'/vendor/autoload.php';
 
-
 $arguments = [];
-
 foreach (array_slice($argv, 1) as  $line) {
     if (preg_match('/^--([^=]+)=(.*)/', $line, $match)) {
         $arguments[$match[1]] = $match[2];
@@ -13,11 +11,7 @@ foreach (array_slice($argv, 1) as  $line) {
 
 $clockwerk = new BelowCode\Psycho\Clockwerk();
 
-$code = $arguments['code'];
-
-$target = $arguments['target'];
-
-$output = $clockwerk->bootstrapAt($target)->execute($code);
+$output = $clockwerk->bootstrapAt($arguments['target'])->execute($arguments['code']);
 
 $writer = new \Symfony\Component\Console\Output\ConsoleOutput();
 $writer->writeln($output);
