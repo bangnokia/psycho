@@ -64,11 +64,15 @@ class Clockwerk
 
     public function execute(string $phpCode): string
     {
-        $output = $this->shell->execute($phpCode);
+        // result here is php variable
+        $result = $this->shell->execute($phpCode);
 
-        $output = $this->cleanOutput($output);
+        // here we write to output to get raw string after processed by presenter
+        $this->shell->writeReturnValue($result);
 
-        return $output;
+        $output = $this->output->fetch();
+
+        return $this->cleanOutput($output);
     }
 
     /**
