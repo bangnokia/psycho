@@ -16,13 +16,12 @@ class Clockwerk
 
     protected Shell $shell;
 
-    protected string $target;
-
     protected Sherlock $sherlock;
 
     public function __construct()
     {
         $this->output = new BufferedOutput();
+        $this->sherlock = new Sherlock();
 
         $this->makeShell()
             ->setShellOutput($this->output);
@@ -54,12 +53,7 @@ class Clockwerk
      */
     public function bootstrapAt(string $target): self
     {
-        $this->target = $target;
-
-        // laravel bootstrap
-        require $target.'/vendor/autoload.php';
-//        $app = require_once $target.'/bootstrap/app.php';
-//        $kernel = $app->make(\Illuminate\Contracts\Console\Kernel::class)->bootstrap();
+        $this->sherlock->detect($target)->rollOut($target);
 
         return $this;
     }
