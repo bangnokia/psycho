@@ -1,7 +1,8 @@
 {
     "require": {
         "php": "^7.4",
-        "psy/psysh": "@stable"
+        "psy/psysh": "@stable",
+        "laravel/tinker": "^2.6"
     },
     "autoload": {
         "psr-4": {

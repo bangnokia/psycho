@@ -2,7 +2,7 @@
 
 namespace BelowCode\Psycho\Drivers;
 
-class PlanPsychoDriver implements PsychoDriverInterface
+class PlanPsychoDriver  extends PsychoDriver
 {
     public function deployable(string $project): bool
     {

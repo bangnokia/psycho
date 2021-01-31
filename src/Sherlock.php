@@ -4,7 +4,7 @@ namespace BelowCode\Psycho;
 
 use BelowCode\Psycho\Drivers\LaravelPsychoPsychoDriver;
 use BelowCode\Psycho\Drivers\PlanPsychoDriver;
-use BelowCode\Psycho\Drivers\PsychoDriverInterface;
+use BelowCode\Psycho\Drivers\PsychoDriver;
 
 class Sherlock
 {
@@ -15,7 +15,7 @@ class Sherlock
     /**
      * @param  string  $subject
      *
-     * @return PsychoDriverInterface|null
+     * @return PsychoDriver|null
      */
     public function detect(string $subject)
     {

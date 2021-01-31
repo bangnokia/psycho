@@ -2,6 +2,7 @@
 
 namespace BelowCode\Psycho;
 
+use Laravel\Tinker\ClassAliasAutoloader;
 use Psy\Configuration;
 use Psy\ExecutionLoopClosure;
 use Psy\Shell;
@@ -12,28 +13,37 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class Clockwerk
 {
-    protected OutputInterface $output;
-
     protected Shell $shell;
 
+    protected OutputInterface $output;
+
     protected Sherlock $sherlock;
+
+    protected string $targetPath;
+
+    protected array $casters = [];
 
     public function __construct()
     {
         $this->output = new BufferedOutput();
         $this->sherlock = new Sherlock();
-
-        $this->makeShell()
-            ->setShellOutput($this->output);
     }
 
     protected function makeShell(): self
     {
         $config = new Configuration([
-            'updateCheck' => Checker::NEVER
+            'updateCheck' => Checker::NEVER,
+            'configFile'  => null
         ]);
+        $config->setHistoryFile(defined('PHP_WINDOWS_VERSION_BUILD') ? 'null' : '/dev/null');
+        $config->getPresenter()->addCasters($this->casters);
 
         $this->shell = new Shell($config);
+        $this->shell->setOutput($this->output);
+
+        if (file_exists($composerClassMap = $this->targetPath.'/vendor/composer/autoload_classmap.php')) {
+            ClassAliasAutoloader::register($this->shell, $composerClassMap);
+        }
 
         return $this;
     }
@@ -53,7 +63,15 @@ class Clockwerk
      */
     public function bootstrapAt(string $target): self
     {
-        $this->sherlock->detect($target)->rollOut($target);
+        $this->targetPath = $target;
+
+        $driver = $this->sherlock->detect($this->targetPath);
+
+        $driver->rollOut($this->targetPath);
+
+        $this->casters = $driver->casters();
+
+        $this->makeShell();
 
         return $this;
     }

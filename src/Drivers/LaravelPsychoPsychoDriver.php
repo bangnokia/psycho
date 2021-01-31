@@ -4,7 +4,7 @@
 namespace BelowCode\Psycho\Drivers;
 
 
-class LaravelPsychoPsychoDriver implements PsychoDriverInterface
+class LaravelPsychoPsychoDriver extends PsychoDriver
 {
     public function deployable(string $project): bool
     {
@@ -20,5 +20,14 @@ class LaravelPsychoPsychoDriver implements PsychoDriverInterface
         $kernel = $app->make(\Illuminate\Contracts\Console\Kernel::class);
 
         $kernel->bootstrap();
+    }
+
+    public function casters(): array
+    {
+        return [
+            'Illuminate\Support\Collection' => 'Laravel\Tinker\TinkerCaster::castCollection',
+            'Illuminate\Database\Eloquent\Model' => 'Laravel\Tinker\TinkerCaster::castModel',
+            'Illuminate\Foundation\Application' => 'Laravel\Tinker\TinkerCaster::castApplication'
+        ];
     }
 }
