@@ -18,6 +18,8 @@ class Clockwerk
 
     protected string $target;
 
+    protected Sherlock $sherlock;
+
     public function __construct()
     {
         $this->output = new BufferedOutput();
