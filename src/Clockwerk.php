@@ -4,7 +4,6 @@ namespace BelowCode\Psycho;
 
 use Laravel\Tinker\ClassAliasAutoloader;
 use Psy\Configuration;
-use Psy\ExecutionLoopClosure;
 use Psy\Shell;
 use Psy\VersionUpdater\Checker;
 use Symfony\Component\Console\Output\BufferedOutput;
