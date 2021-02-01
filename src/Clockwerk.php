@@ -1,6 +1,6 @@
 <?php
 
-namespace BelowCode\Psycho;
+namespace BangNokia\Psycho;
 
 use Laravel\Tinker\ClassAliasAutoloader;
 use Psy\Configuration;

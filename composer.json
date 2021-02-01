@@ -1,5 +1,5 @@
 {
-    "name": "belowcode/pekyll",
+    "name": "bangnokia/psycho",
     "type": "library",
     "description": "The psycho library",
     "license": "MIT",
@@ -8,18 +8,18 @@
         "psy/psysh": "^0.10",
         "laravel/tinker": "^2.6"
     },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5",
+        "symfony/process": "^5.2"
+    },
     "autoload": {
         "psr-4": {
-            "BelowCode\\Psycho\\": "src/"
+            "BangNokia\\Psycho\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "BelowCode\\Psycho\\Tests\\": "tests/"
+            "BangNokia\\Psycho\\Tests\\": "tests/"
         }
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^9.5",
-        "symfony/process": "^5.2"
     }
 }
