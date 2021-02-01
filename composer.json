@@ -1,6 +1,7 @@
 {
-    "name": "Psycho",
-    "description": "Psycho just is Psysh",
+    "name": "belowcode/pekyll",
+    "type": "library",
+    "description": "The psycho library",
     "license": "MIT",
     "require": {
         "php": "^7.4",
