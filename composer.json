@@ -5,7 +5,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.4",
-        "psy/psysh": "@stable",
+        "psy/psysh": "^0.10",
         "laravel/tinker": "^2.6"
     },
     "autoload": {
