@@ -1,4 +1,7 @@
 {
+    "name": "Psycho",
+    "description": "Psycho just is Psysh",
+    "license": "MIT",
     "require": {
         "php": "^7.4",
         "psy/psysh": "@stable",
