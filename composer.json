@@ -23,6 +23,6 @@
         }
     },
     "scripts":{
-        "build": "./bin/box.phar compile"
+        "build": "composer install --no-dev && ./bin/box.phar compile"
     }
 }
