@@ -21,5 +21,8 @@
         "psr-4": {
             "BangNokia\\Psycho\\Tests\\": "tests/"
         }
+    },
+    "scripts":{
+        "build": "./bin/box.phar compile"
     }
 }

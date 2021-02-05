@@ -1,0 +1,15 @@
+{
+	"chmod": "0755",
+	"output": "psycho.phar",
+	"directories": [
+		"src/",
+		"vendor/"
+	],
+	"compactors": [
+		"KevinGH\\Box\\Compactor\\Php",
+		"KevinGH\\Box\\Compactor\\Php"
+	],
+	"files": [
+		"composer.json"
+	]
+}
