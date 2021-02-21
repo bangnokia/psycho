@@ -13,7 +13,7 @@ class CommandTest extends TestCase
         $target = __DIR__.'/fixtures/foo';
         $phpCode = 'foo()';
 
-        $command = "php $entry --target=$target --code=\"$phpCode\"";
+        $command = "php $entry --target=$target --code=" . base64_encode($phpCode);
 
         $output = shell_exec($command);
 
@@ -29,7 +29,7 @@ $name = 'tinker';
 $greeting = 'hello '.$name;
 EOF;
 
-        $process = new Process(['php', $entry, "--target=$target", "--code=$phpCode"]);
+        $process = new Process(['php', $entry, "--target=$target", "--code=" . base64_encode($phpCode)]);
         $process->run();
         $output = $process->getOutput();
 
