@@ -109,9 +109,9 @@ class Clockwerk
      */
     public function removeComments(string $code): string
     {
-        $tokens = collect(token_get_all("<?php\n".$code.'?>'));
+        $tokens = token_get_all("<?php\n".$code.'?>');
 
-        return $tokens->reduce(function ($carry, $token) {
+        return array_reduce($tokens, function ($carry, $token) {
             if (is_string($token)) {
                 return $carry.$token;
             }
