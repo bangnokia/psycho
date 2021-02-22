@@ -2,9 +2,10 @@
 
 namespace BangNokia\Psycho;
 
-use BangNokia\Psycho\Drivers\LaravelDriver;
-use BangNokia\Psycho\Drivers\PlanProjectDriver;
 use BangNokia\Psycho\Drivers\PsychoDriver;
+use BangNokia\Psycho\Drivers\LaravelDriver;
+use BangNokia\Psycho\Drivers\WordpressDriver;
+use BangNokia\Psycho\Drivers\PlanProjectDriver;
 
 class Sherlock
 {
@@ -13,12 +14,13 @@ class Sherlock
      */
     protected $drivers = [
         LaravelDriver::class,
+        WordpressDriver::class,
     ];
 
     /**
      * @param  string  $subject
      *
-     * @return PsychoDriver|null
+     * @return PsychoDriver
      */
     public function detect(string $subject)
     {
