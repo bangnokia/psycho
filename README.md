@@ -14,6 +14,6 @@
 - Wordpress
 - Plan project (which require only `vendor/autoload.php`)
 
-# Build phar
+## build phar file
 
 `composer run build`
