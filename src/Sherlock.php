@@ -2,8 +2,8 @@
 
 namespace BangNokia\Psycho;
 
-use BangNokia\Psycho\Drivers\LaravelPsychoPsychoDriver;
-use BangNokia\Psycho\Drivers\PlanPsychoDriver;
+use BangNokia\Psycho\Drivers\LaravelDriver;
+use BangNokia\Psycho\Drivers\PlanProjectDriver;
 use BangNokia\Psycho\Drivers\PsychoDriver;
 
 class Sherlock
@@ -12,7 +12,7 @@ class Sherlock
      * @var string[]
      */
     protected $drivers = [
-        LaravelPsychoPsychoDriver::class,
+        LaravelDriver::class,
     ];
 
     /**
@@ -30,6 +30,6 @@ class Sherlock
             }
         }
 
-        return new PlanPsychoDriver();
+        return new PlanProjectDriver();
     }
 }

@@ -2,7 +2,7 @@
 
 namespace BangNokia\Psycho\Drivers;
 
-class PlanPsychoDriver  extends PsychoDriver
+class PlanProjectDriver  extends PsychoDriver
 {
     public function deployable(string $project): bool
     {
