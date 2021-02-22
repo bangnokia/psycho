@@ -5,7 +5,7 @@
 		"vendor/"
 	],
 	"compactors": [
-		"KevinGH\\Box\\Compactor\\Php",
+		"KevinGH\\Box\\Compactor\\Json",
 		"KevinGH\\Box\\Compactor\\Php"
 	],
 	"compression": "GZ",
