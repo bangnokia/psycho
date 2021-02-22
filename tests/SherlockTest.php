@@ -2,8 +2,8 @@
 
 namespace BangNokia\Psycho\Tests;
 
-use BangNokia\Psycho\Drivers\LaravelPsychoPsychoDriver;
-use BangNokia\Psycho\Drivers\PlanPsychoDriver;
+use BangNokia\Psycho\Drivers\LaravelDriver;
+use BangNokia\Psycho\Drivers\PlanProjectDriver;
 use BangNokia\Psycho\Sherlock;
 use PHPUnit\Framework\TestCase;
 
@@ -25,13 +25,13 @@ class SherlockTest extends TestCase
     {
         $subject = $this->sherlock->detect(__DIR__.'/fixtures/drivers/laravel');
 
-        $this->assertInstanceOf(LaravelPsychoPsychoDriver::class, $subject);
+        $this->assertInstanceOf(LaravelDriver::class, $subject);
     }
 
     public function testItCanFallbackToPlanDriverIfCanNotDetectAnyThing()
     {
         $subject = $this->sherlock->detect(__DIR__.'/fixtures/drivers/dummy');
 
-        $this->assertInstanceOf(PlanPsychoDriver::class, $subject);
+        $this->assertInstanceOf(PlanProjectDriver::class, $subject);
     }
 }
