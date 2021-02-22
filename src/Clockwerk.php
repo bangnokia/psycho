@@ -2,7 +2,6 @@
 
 namespace BangNokia\Psycho;
 
-use Laravel\Tinker\ClassAliasAutoloader;
 use Psy\Configuration;
 use Psy\Shell;
 use Psy\VersionUpdater\Checker;
