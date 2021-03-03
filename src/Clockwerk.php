@@ -86,6 +86,8 @@ class Clockwerk
 
         $this->makeShell();
 
+        chdir($this->targetPath);
+
         return $this;
     }
 
