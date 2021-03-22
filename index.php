@@ -2,6 +2,8 @@
 
 include __DIR__.'/vendor/autoload.php';
 
+define('PSYCHO_VERSION', '0.1.0');
+
 $arguments = getopt('', ['target:', 'code:']);
 
 $clockwerk = new BangNokia\Psycho\Clockwerk();
