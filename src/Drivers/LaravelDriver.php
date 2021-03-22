@@ -4,7 +4,7 @@
 namespace BangNokia\Psycho\Drivers;
 
 
-class LaravelPsychoPsychoDriver extends PsychoDriver
+class LaravelDriver extends PsychoDriver
 {
     public function deployable(string $project): bool
     {

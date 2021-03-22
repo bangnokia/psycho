@@ -2,7 +2,6 @@
 
 namespace BangNokia\Psycho;
 
-use Laravel\Tinker\ClassAliasAutoloader;
 use Psy\Configuration;
 use Psy\Shell;
 use Psy\VersionUpdater\Checker;
@@ -12,15 +11,30 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class Clockwerk
 {
-    protected Shell $shell;
+    /**
+     * @var Shell
+     */
+    protected $shell;
 
-    protected OutputInterface $output;
+    /**
+     * @var OutputInterface
+     */
+    protected $output;
 
-    protected Sherlock $sherlock;
+    /**
+     * @var Sherlock
+     */
+    protected $sherlock;
 
-    protected string $targetPath;
+    /**
+     * @var string
+     */
+    protected $targetPath;
 
-    protected array $casters = [];
+    /**
+     * @var array
+     */
+    protected $casters = [];
 
     public function __construct()
     {
@@ -72,13 +86,15 @@ class Clockwerk
 
         $this->makeShell();
 
+        chdir($this->targetPath);
+
         return $this;
     }
 
     public function execute(string $phpCode): string
     {
         // result here is php variable
-        $result = $this->shell->execute($phpCode);
+        $result = $this->shell->execute($this->removeComments($phpCode));
 
         // here we write to output to get raw string after processed by presenter
         $this->shell->writeReturnValue($result);
@@ -89,8 +105,52 @@ class Clockwerk
     }
 
     /**
-     * Copy from spatie/web-tinker
-     *
+     * @author spaties/laravel-web-tinker
+     * @param  string  $code
+     * @return string
+     */
+    public function removeComments(string $code): string
+    {
+        $tokens = token_get_all("<?php\n".$code.'?>');
+
+        return array_reduce($tokens, function ($carry, $token) {
+            if (is_string($token)) {
+                return $carry.$token;
+            }
+
+            $text = $this->ignoreCommentsAndPhpTags($token);
+
+            return $carry.$text;
+        }, '');
+    }
+
+    /**
+     * @author spaties/laravel-web-tinker
+     * @param  array  $token
+     * @return mixed|string
+     */
+    protected function ignoreCommentsAndPhpTags(array $token)
+    {
+        [$id, $text] = $token;
+
+        if ($id === T_COMMENT) {
+            return '';
+        }
+        if ($id === T_DOC_COMMENT) {
+            return '';
+        }
+        if ($id === T_OPEN_TAG) {
+            return '';
+        }
+        if ($id === T_CLOSE_TAG) {
+            return '';
+        }
+
+        return $text;
+    }
+
+    /**
+     * @author spaties/laravel-web-tinker
      * @param  string  $output
      * @return string
      */
