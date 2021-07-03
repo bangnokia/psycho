@@ -1,8 +1,6 @@
 <?php
 
-
 namespace BangNokia\Psycho\Drivers;
-
 
 class LaravelDriver extends PsychoDriver
 {
