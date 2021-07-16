@@ -17,7 +17,7 @@ class CommandTest extends TestCase
 
         $output = shell_exec($command);
 
-        $this->assertEquals('=> "bar"', trim($output));
+        $this->assertEquals(base64_encode('=> "bar"'), trim($output));
     }
 
     public function testCanPassMultipleLinesOfCode()
@@ -33,6 +33,6 @@ EOF;
         $process->run();
         $output = $process->getOutput();
 
-        $this->assertEquals('=> "hello tinker"', trim($output));
+        $this->assertEquals(base64_encode('=> "hello tinker"'), trim($output));
     }
 }

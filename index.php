@@ -11,7 +11,7 @@ $clockwerk = new BangNokia\Psycho\Clockwerk();
 $output = $clockwerk->bootstrapAt($arguments['target'])->execute(base64_decode(trim($arguments['code'])));
 
 $writer = new \Symfony\Component\Console\Output\ConsoleOutput();
-$writer->writeln($output);
+$writer->writeln(base64_encode($output));
 
 return 0;
 
