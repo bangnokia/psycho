@@ -15,9 +15,9 @@ class CommandTest extends TestCase
 
         $command = "php $entry --target=$target --code=" . base64_encode($phpCode);
 
-        $output = shell_exec($command);
+        $result = json_decode(shell_exec($command), true);
 
-        $this->assertEquals(base64_encode('=> "bar"'), trim($output));
+        $this->assertEquals('=> "bar"', $result['output']);
     }
 
     public function testCanPassMultipleLinesOfCode()
@@ -30,9 +30,11 @@ $greeting = 'hello '.$name;
 EOF;
 
         $process = new Process(['php', $entry, "--target=$target", "--code=" . base64_encode($phpCode)]);
-        $process->run();
-        $output = $process->getOutput();
 
-        $this->assertEquals(base64_encode('=> "hello tinker"'), trim($output));
+        $process->run();
+
+        $result = json_decode($process->getOutput(), true);
+
+        $this->assertEquals('=> "hello tinker"', $result['output']);
     }
 }

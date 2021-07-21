@@ -13,7 +13,11 @@ $clockwerk = new BangNokia\Psycho\Clockwerk();
 $output = $clockwerk->bootstrapAt($arguments['target'] ?? '')->execute(base64_decode(trim($arguments['code'])));
 
 $writer = new ConsoleOutput();
-$writer->writeln(base64_encode($output));
+
+$writer->writeln(json_encode([
+    'output' => $output,
+    'meta' => []
+]));
 
 return 0;
 
