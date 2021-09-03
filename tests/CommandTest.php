@@ -53,3 +53,4 @@ EOF);
         $this->assertEquals('=> "hello tinker"', $result['output']);
     }
 }
+

@@ -29,3 +29,4 @@ class ClockwerkTest extends TestCase
         $this->assertStringContainsString('bar', $output);
     }
 }
+
