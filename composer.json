@@ -4,7 +4,7 @@
     "description": "The psycho library",
     "license": "MIT",
     "require": {
-        "php": "^7.3",
+        "php": "^7.3|^8.0",
         "psy/psysh": "^0.10",
         "ext-json": "*"
     },
