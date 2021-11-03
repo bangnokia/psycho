@@ -42,7 +42,7 @@ class Clockwerk
         $this->sherlock = new Sherlock();
     }
 
-    protected function makeShell(): self
+    protected function makeShell()
     {
         $config = new Configuration([
             'updateCheck' => Checker::NEVER,
@@ -61,7 +61,11 @@ class Clockwerk
         return $this;
     }
 
-    protected function setShellOutput(Output $output): self
+    /**
+     * @param  Output  $output
+     * @return $this
+     */
+    protected function setShellOutput($output)
     {
         $this->shell->setOutput($output);
 
@@ -74,7 +78,7 @@ class Clockwerk
      * @param  string  $target
      * @return Clockwerk
      */
-    public function bootstrapAt(string $target): self
+    public function bootstrapAt($target)
     {
         $this->targetPath = $target;
 
@@ -86,12 +90,24 @@ class Clockwerk
 
         $this->makeShell();
 
-        chdir($this->targetPath);
+        $this->teleportToTargetDirectory();
 
         return $this;
     }
 
-    public function execute(string $phpCode): string
+    protected function teleportToTargetDirectory() {
+        if ($this->targetPath) {
+            chdir($this->targetPath);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param  string  $phpCode
+     * @return string
+     */
+    public function execute($phpCode)
     {
         // result here is php variable
         $result = $this->shell->execute($this->removeComments($phpCode));
@@ -109,7 +125,7 @@ class Clockwerk
      * @param  string  $code
      * @return string
      */
-    public function removeComments(string $code): string
+    public function removeComments($code)
     {
         $tokens = token_get_all("<?php\n".$code.'?>');
 
@@ -129,7 +145,7 @@ class Clockwerk
      * @param  array  $token
      * @return mixed|string
      */
-    protected function ignoreCommentsAndPhpTags(array $token)
+    protected function ignoreCommentsAndPhpTags($token)
     {
         [$id, $text] = $token;
 
@@ -154,7 +170,7 @@ class Clockwerk
      * @param  string  $output
      * @return string
      */
-    protected function cleanOutput(string $output): string
+    protected function cleanOutput($output)
     {
         $output = preg_replace('/(?s)(<aside.*?<\/aside>)|Exit:  Ctrl\+D/ms', '$2', $output);
 
