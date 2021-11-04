@@ -8,6 +8,7 @@ use Psy\VersionUpdater\Checker;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\Output;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Output\StreamOutput;
 
 class Clockwerk
 {
@@ -36,9 +37,13 @@ class Clockwerk
      */
     protected $casters = [];
 
-    public function __construct()
+    /** @var bool  */
+    protected $realtimeOutput = false;
+
+    public function __construct($realtimeOutput = false)
     {
-        $this->output = new BufferedOutput();
+        $this->realtimeOutput = $realtimeOutput;
+        $this->output = $this->realtimeOutput ? new StreamOutput(fopen('php://stdout', 'w')) : new BufferedOutput();
         $this->sherlock = new Sherlock();
     }
 
@@ -115,9 +120,13 @@ class Clockwerk
         // here we write to output to get raw string after processed by presenter
         $this->shell->writeReturnValue($result);
 
-        $output = $this->output->fetch();
+        if  (!$this->realtimeOutput) {
+            $output = $this->output->fetch();
 
-        return $this->cleanOutput($output);
+            return $this->cleanOutput($output);
+        }
+
+//        return null;
     }
 
     /**
