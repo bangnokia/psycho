@@ -38,12 +38,12 @@ class Clockwerk
     protected $casters = [];
 
     /** @var bool  */
-    protected $realtimeOutput = false;
+    protected $outputMode;
 
-    public function __construct($realtimeOutput = false)
+    public function __construct($outputMode = 'buffered')
     {
-        $this->realtimeOutput = $realtimeOutput;
-        $this->output = $this->realtimeOutput ? new StreamOutput(fopen('php://stdout', 'w')) : new BufferedOutput();
+        $this->outputMode = $outputMode;
+        $this->output = $this->outputMode === 'stream' ? new StreamOutput(STDOUT) : new BufferedOutput();
         $this->sherlock = new Sherlock();
     }
 
@@ -120,7 +120,7 @@ class Clockwerk
         // here we write to output to get raw string after processed by presenter
         $this->shell->writeReturnValue($result);
 
-        if  (!$this->realtimeOutput) {
+        if  ($this->outputMode === 'buffered') {
             $output = $this->output->fetch();
 
             return $this->cleanOutput($output);

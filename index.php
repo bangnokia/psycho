@@ -8,7 +8,7 @@ const PSYCHO_VERSION = '0.1.0';
 
 $arguments = getopt('', ['target:', 'code:', 'format:', 'mode:']);
 
-$clockwerk = new BangNokia\Psycho\Clockwerk(($arguments['mode'] ?? 'sync') === 'realtime');
+$clockwerk = new BangNokia\Psycho\Clockwerk($arguments['mode'] ?? 'buffered');
 
 // testing
 //$arguments['code'] = base64_encode('foreach (range(1, 3) as $i) {
@@ -32,5 +32,6 @@ if ($format === "raw") {
         'meta' => []
     ]));
 }
+
 return 0;
 
