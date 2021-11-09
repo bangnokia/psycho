@@ -22,7 +22,7 @@
             "BangNokia\\Psycho\\Tests\\": "tests/"
         }
     },
-    "scripts":{
-        "build": "composer install --no-dev -o && ./bin/box.phar compile"
+    "scripts": {
+        "build": "composer install --no-dev -o && php ./bin/box.phar compile"
     }
 }

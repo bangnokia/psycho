@@ -53,13 +53,15 @@ class Clockwerk
             'updateCheck' => Checker::NEVER,
             'configFile'  => null
         ]);
-        $config->setHistoryFile(defined('PHP_WINDOWS_VERSION_BUILD') ? 'null' : '/dev/null');
+        if (defined('PHP_WINDOWS_VERSION_BUILD')) {
+            $config->setHistoryFile('/dev/null');
+        }
         $config->getPresenter()->addCasters($this->casters);
 
         $this->shell = new Shell($config);
         $this->shell->setOutput($this->output);
 
-        if (file_exists($composerClassMap = $this->targetPath.'/vendor/composer/autoload_classmap.php')) {
+        if (file_exists($composerClassMap = $this->targetPath . '/vendor/composer/autoload_classmap.php')) {
             ClassAliasAutoloader::register($this->shell, $composerClassMap);
         }
 
@@ -100,7 +102,8 @@ class Clockwerk
         return $this;
     }
 
-    protected function teleportToTargetDirectory() {
+    protected function teleportToTargetDirectory()
+    {
         if ($this->targetPath) {
             chdir($this->targetPath);
         }
@@ -120,13 +123,13 @@ class Clockwerk
         // here we write to output to get raw string after processed by presenter
         $this->shell->writeReturnValue($result);
 
-        if  ($this->outputMode === 'buffered') {
+        if ($this->outputMode === 'buffered') {
             $output = $this->output->fetch();
 
             return $this->cleanOutput($output);
         }
 
-//        return null;
+        //        return null;
     }
 
     /**
@@ -136,16 +139,16 @@ class Clockwerk
      */
     public function removeComments($code)
     {
-        $tokens = token_get_all("<?php\n".$code.'?>');
+        $tokens = token_get_all("<?php\n" . $code . '?>');
 
         return array_reduce($tokens, function ($carry, $token) {
             if (is_string($token)) {
-                return $carry.$token;
+                return $carry . $token;
             }
 
             $text = $this->ignoreCommentsAndPhpTags($token);
 
-            return $carry.$text;
+            return $carry . $text;
         }, '');
     }
 
