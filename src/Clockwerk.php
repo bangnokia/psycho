@@ -53,7 +53,7 @@ class Clockwerk
             'updateCheck' => Checker::NEVER,
             'configFile'  => null
         ]);
-        if (defined('PHP_WINDOWS_VERSION_BUILD')) {
+        if (!defined('PHP_WINDOWS_VERSION_BUILD')) {
             $config->setHistoryFile('/dev/null');
         }
         $config->getPresenter()->addCasters($this->casters);
