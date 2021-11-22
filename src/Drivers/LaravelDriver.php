@@ -15,7 +15,7 @@ class LaravelDriver extends PsychoDriver
 
         $app = require $project.'/bootstrap/app.php';
 
-        $kernel = $app->make(\Illuminate\Contracts\Console\Kernel::class);
+        $kernel = $app->make(\Illuminate\Contracts\Console\Kernel::class); 
 
         $kernel->bootstrap();
     }

@@ -4,6 +4,17 @@ namespace BangNokia\Psycho;
 
 use Psy\Shell;
 
+/**
+ * @param string $class
+ * @return string
+ */
+function class_basename($class)
+{
+    $class = is_object($class) ? get_class($class) : $class;
+
+    return basename(str_replace('\\', '/', $class));
+}
+
 class ClassAliasAutoloader
 {
     /**
@@ -36,9 +47,11 @@ class ClassAliasAutoloader
      */
     public static function register(Shell $shell, $classMapPath)
     {
-        return tap(new static($shell, $classMapPath), function ($loader) {
-            spl_autoload_register([$loader, 'aliasClass']);
-        });
+        $loader = new static($shell, $classMapPath);
+
+        spl_autoload_register([$loader, 'aliasClass']);
+
+        return $loader;
     }
 
     /**
